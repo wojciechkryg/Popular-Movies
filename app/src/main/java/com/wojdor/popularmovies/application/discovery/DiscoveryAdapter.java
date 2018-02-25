@@ -1,11 +1,13 @@
 package com.wojdor.popularmovies.application.discovery;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.domain.Movie;
 
@@ -14,17 +16,20 @@ import java.util.List;
 public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.DiscoveryAdapterViewHolder> {
 
     private List<Movie> movies;
+    private Context context;
 
     @Override
     public DiscoveryAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_movie, parent, false);
         return new DiscoveryAdapterViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DiscoveryAdapterViewHolder holder, int position) {
-        holder.posterIv.setImageResource(R.mipmap.ic_launcher);
+        Movie movie = movies.get(position);
+        Picasso.with(context).load(movie.getPosterUrl()).into(holder.posterIv);
     }
 
     @Override

@@ -23,7 +23,16 @@ public class MoviesRemoteDataSource implements MoviesDataSource {
 
     @Override
     public List<Movie> getPopularMovies() {
-        URL url = NetworkUtils.getInstance().buildUrl(BASE_URL, POPULAR_MOVIES_ENDPOINT);
+        return getMovies(POPULAR_MOVIES_ENDPOINT);
+    }
+
+    @Override
+    public List<Movie> getTopRatedMovies() {
+        return getMovies(TOP_RATED_MOVIES_ENDPOINT);
+    }
+
+    private List<Movie> getMovies(String endpoint) {
+        URL url = NetworkUtils.getInstance().buildUrl(BASE_URL, endpoint);
         try {
             String jsonResponse = NetworkUtils.getInstance().getJsonResponseFromHttpUrl(url);
             List<MovieModel> movieModels = MovieModelUtils.getInstance().
@@ -33,10 +42,5 @@ public class MoviesRemoteDataSource implements MoviesDataSource {
             Log.e(this.getClass().getName(), error.getMessage());
             return new ArrayList<>();
         }
-    }
-
-    @Override
-    public List<Movie> getTopRatedMovies() {
-        return null;
     }
 }

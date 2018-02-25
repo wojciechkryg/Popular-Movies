@@ -5,19 +5,30 @@ import android.os.AsyncTask;
 import com.wojdor.popularmovies.data.source.MoviesRemoteDataSource;
 import com.wojdor.popularmovies.domain.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DownloadMoviesTask extends AsyncTask<Void, Void, List<Movie>> {
 
     private DiscoveryContract.View view;
+    private MoviesOrder order;
 
-    public DownloadMoviesTask(DiscoveryContract.View view) {
+    public DownloadMoviesTask(DiscoveryContract.View view, MoviesOrder order) {
         this.view = view;
+        this.order = order;
     }
 
     @Override
     protected List<Movie> doInBackground(Void... voids) {
-        return new MoviesRemoteDataSource().getPopularMovies();
+        MoviesRemoteDataSource dataSource = new MoviesRemoteDataSource();
+        switch (order) {
+            case POPULAR:
+                return dataSource.getPopularMovies();
+            case TOP_RATED:
+                return dataSource.getTopRatedMovies();
+            default:
+                return new ArrayList<>();
+        }
     }
 
     @Override

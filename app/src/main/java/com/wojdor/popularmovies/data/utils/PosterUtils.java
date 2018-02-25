@@ -1,8 +1,8 @@
-package com.wojdor.popularmovies.utils;
+package com.wojdor.popularmovies.data.utils;
 
 public final class PosterUtils {
 
-    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w185/";
+    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
 
     private static PosterUtils instance;
 
