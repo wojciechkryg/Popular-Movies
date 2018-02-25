@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$android_support_version"
+    implementation "com.android.support:recyclerview-v7:$android_support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "com.squareup.picasso:picasso:$picasso_version"
     testImplementation "junit:junit:$junit_version"
