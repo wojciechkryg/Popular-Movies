@@ -1,19 +1,18 @@
-package com.wojdor.popularmovies.domain;
+package com.wojdor.popularmovies.data.model;
 
-
-public class Movie {
+public class MovieModel {
 
     private String title;
     private String releaseDate;
-    private String posterUrl;
+    private String posterPath;
     private double voteAverage;
     private String overview;
 
-    public Movie(String title, String releaseDate, String posterUrl, double voteAverage,
-                 String overview) {
+    public MovieModel(String title, String releaseDate, String posterPath, double voteAverage,
+                      String overview) {
         this.title = title;
         this.releaseDate = releaseDate;
-        this.posterUrl = posterUrl;
+        this.posterPath = posterPath;
         this.voteAverage = voteAverage;
         this.overview = overview;
     }
@@ -26,8 +25,8 @@ public class Movie {
         return releaseDate;
     }
 
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getPosterPath() {
+        return posterPath;
     }
 
     public double getVoteAverage() {

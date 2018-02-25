@@ -1,4 +1,4 @@
-package com.wojdor.popularmovies.discovery;
+package com.wojdor.popularmovies.application.discovery;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,10 +15,6 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
 
     private List<Movie> movies;
 
-    public DiscoveryAdapter(List<Movie> movies) {
-        this.movies = movies;
-    }
-
     @Override
     public DiscoveryAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -34,6 +30,11 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
     @Override
     public int getItemCount() {
         return movies == null ? 0 : movies.size();
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
     }
 
     public class DiscoveryAdapterViewHolder extends RecyclerView.ViewHolder {

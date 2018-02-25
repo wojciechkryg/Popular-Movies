@@ -1,4 +1,4 @@
-package com.wojdor.popularmovies.discovery;
+package com.wojdor.popularmovies.application.discovery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.domain.Movie;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoveryActivity extends AppCompatActivity implements DiscoveryContract.View {
@@ -24,22 +23,20 @@ public class DiscoveryActivity extends AppCompatActivity implements DiscoveryCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
         presenter = new DiscoveryPresenter(this);
-        setupMoviesRv();
+        initMoviesRv();
+        presenter.loadPopularMovies();
     }
 
-    private void setupMoviesRv() {
+    private void initMoviesRv() {
         moviesRv = findViewById(R.id.activity_discovery_movies_rv);
-        adapter = new DiscoveryAdapter(getMockMovies());
+        adapter = new DiscoveryAdapter();
         moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         moviesRv.setAdapter(adapter);
     }
 
-    private List<Movie> getMockMovies() {
-        List<Movie> mockMovies = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Movie mockMovie = new Movie();
-            mockMovies.add(mockMovie);
-        }
-        return mockMovies;
+
+    @Override
+    public void showMovies(List<Movie> movies) {
+        adapter.setMovies(movies);
     }
 }
