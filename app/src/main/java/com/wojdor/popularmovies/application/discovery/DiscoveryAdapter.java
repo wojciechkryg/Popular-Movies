@@ -29,7 +29,12 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
     @Override
     public void onBindViewHolder(DiscoveryAdapterViewHolder holder, int position) {
         Movie movie = movies.get(position);
-        Picasso.with(context).load(movie.getPosterUrl()).into(holder.posterIv);
+        setupPosterIv(holder.posterIv, movie);
+    }
+
+    private void setupPosterIv(ImageView posterIv, Movie movie) {
+        Picasso.with(context).load(movie.getPosterUrl()).into(posterIv);
+        posterIv.setContentDescription(movie.getTitle());
     }
 
     @Override

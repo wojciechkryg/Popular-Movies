@@ -1,6 +1,7 @@
 package com.wojdor.popularmovies.data.utils;
 
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.wojdor.popularmovies.BuildConfig;
@@ -45,17 +46,22 @@ public final class NetworkUtils {
     public String getJsonResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
-            InputStream in = urlConnection.getInputStream();
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
-            }
+            return scanForResponse(urlConnection);
         } finally {
             urlConnection.disconnect();
+        }
+    }
+
+    @Nullable
+    private String scanForResponse(HttpURLConnection urlConnection) throws IOException {
+        InputStream in = urlConnection.getInputStream();
+        Scanner scanner = new Scanner(in);
+        scanner.useDelimiter("\\A");
+        boolean hasInput = scanner.hasNext();
+        if (hasInput) {
+            return scanner.next();
+        } else {
+            return null;
         }
     }
 }
