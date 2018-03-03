@@ -11,6 +11,8 @@ public interface DiscoveryContract {
     interface View extends BaseView {
 
         void showMovies(List<Movie> movies);
+
+        void scrollToTop();
     }
 
     interface Presenter extends BasePresenter {

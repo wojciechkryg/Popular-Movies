@@ -9,6 +9,11 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
     }
 
     @Override
+    public void start() {
+        loadPopularMovies();
+    }
+
+    @Override
     public void loadPopularMovies() {
         new DownloadMoviesTask(view, MoviesOrder.POPULAR).execute();
     }
