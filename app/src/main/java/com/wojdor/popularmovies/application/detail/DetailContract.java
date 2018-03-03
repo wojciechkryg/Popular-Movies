@@ -1,9 +1,9 @@
-package com.wojdor.popularmovies.application.details;
+package com.wojdor.popularmovies.application.detail;
 
 import com.wojdor.popularmovies.application.base.BasePresenter;
 import com.wojdor.popularmovies.application.base.BaseView;
 
-public interface DetailsContract {
+public interface DetailContract {
 
     interface View extends BaseView {
     }

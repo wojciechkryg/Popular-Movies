@@ -1,7 +1,21 @@
 package com.wojdor.popularmovies.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Movie {
+public class Movie implements Parcelable {
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     private String title;
     private String releaseDate;
@@ -16,6 +30,14 @@ public class Movie {
         this.posterUrl = posterUrl;
         this.voteAverage = voteAverage;
         this.overview = overview;
+    }
+
+    private Movie(Parcel in) {
+        title = in.readString();
+        releaseDate = in.readString();
+        posterUrl = in.readString();
+        voteAverage = in.readDouble();
+        overview = in.readString();
     }
 
     public String getTitle() {
@@ -36,5 +58,19 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(releaseDate);
+        dest.writeString(posterUrl);
+        dest.writeDouble(voteAverage);
+        dest.writeString(overview);
     }
 }

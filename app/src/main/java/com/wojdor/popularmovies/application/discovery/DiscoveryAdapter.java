@@ -15,8 +15,15 @@ import java.util.List;
 
 public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.DiscoveryAdapterViewHolder> {
 
-    private List<Movie> movies;
+    private static final int NO_ITEMS_COUNT = 0;
+
     private Context context;
+    private ItemClickListener itemClickListener;
+    private List<Movie> movies;
+
+    public DiscoveryAdapter(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
     @Override
     public DiscoveryAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,7 +46,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
 
     @Override
     public int getItemCount() {
-        return movies == null ? 0 : movies.size();
+        return movies == null ? NO_ITEMS_COUNT : movies.size();
     }
 
     public void setMovies(List<Movie> movies) {
@@ -47,13 +54,26 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
         notifyDataSetChanged();
     }
 
-    public class DiscoveryAdapterViewHolder extends RecyclerView.ViewHolder {
+    public interface ItemClickListener {
+
+        void onItemClick(Movie movie);
+    }
+
+    public class DiscoveryAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final ImageView posterIv;
 
         public DiscoveryAdapterViewHolder(View view) {
             super(view);
             posterIv = view.findViewById(R.id.item_movie_poster_iv);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            Movie movie = movies.get(clickedPosition);
+            itemClickListener.onItemClick(movie);
         }
     }
 }
