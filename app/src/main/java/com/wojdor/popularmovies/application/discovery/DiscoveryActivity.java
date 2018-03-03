@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
-import com.wojdor.popularmovies.application.detail.DetailActivity;
+import com.wojdor.popularmovies.application.details.DetailsActivity;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
@@ -39,11 +39,6 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         adapter = new DiscoveryAdapter(this);
         moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         moviesRv.setAdapter(adapter);
-    }
-
-    private void setupPresenter() {
-        presenter = new DiscoveryPresenter(this);
-        presenter.start();
     }
 
     @Override
@@ -99,6 +94,12 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     }
 
     @Override
+    public void setupPresenter() {
+        presenter = new DiscoveryPresenter(this);
+        presenter.start();
+    }
+
+    @Override
     public void showMovies(List<Movie> movies) {
         adapter.setMovies(movies);
     }
@@ -109,8 +110,14 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     }
 
     @Override
-    public void onItemClick(Movie movie) {
-        Intent intent = new Intent(this, DetailActivity.class);
+    public void showMovieDetails(Movie movie) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.MOVIE_EXTRA, movie);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(Movie movie) {
+        presenter.openMovieDetails(movie);
     }
 }

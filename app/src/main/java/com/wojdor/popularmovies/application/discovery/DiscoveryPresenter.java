@@ -1,5 +1,7 @@
 package com.wojdor.popularmovies.application.discovery;
 
+import com.wojdor.popularmovies.domain.Movie;
+
 public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     private final DiscoveryContract.View view;
@@ -21,5 +23,10 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
     @Override
     public void loadTopRatedMovies() {
         new DownloadMoviesTask(view, MoviesOrder.TOP_RATED).execute();
+    }
+
+    @Override
+    public void openMovieDetails(Movie movie) {
+        view.showMovieDetails(movie);
     }
 }

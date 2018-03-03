@@ -13,6 +13,8 @@ public interface DiscoveryContract {
         void showMovies(List<Movie> movies);
 
         void scrollToTop();
+
+        void showMovieDetails(Movie movie);
     }
 
     interface Presenter extends BasePresenter {
@@ -20,5 +22,7 @@ public interface DiscoveryContract {
         void loadPopularMovies();
 
         void loadTopRatedMovies();
+
+        void openMovieDetails(Movie movie);
     }
 }

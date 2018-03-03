@@ -1,11 +1,14 @@
-package com.wojdor.popularmovies.application.detail;
+package com.wojdor.popularmovies.application.details;
 
 import com.wojdor.popularmovies.application.base.BasePresenter;
 import com.wojdor.popularmovies.application.base.BaseView;
+import com.wojdor.popularmovies.domain.Movie;
 
-public interface DetailContract {
+public interface DetailsContract {
 
     interface View extends BaseView {
+
+        void showDetails(Movie movie);
     }
 
     interface Presenter extends BasePresenter {
