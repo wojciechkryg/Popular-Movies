@@ -2,10 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <size
-        android:width="@dimen/vote_average_bg_size"
-        android:height="@dimen/vote_average_bg_size" />
-
     <stroke
         android:width="@dimen/vote_average_bg_stroke_width"
         android:color="@color/colorAccent" />
