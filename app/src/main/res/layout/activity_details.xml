@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wojdor.popularmovies.application.details.DetailsActivity">
 
+    <TextView
+        android:id="@+id/activity_detail_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/activity_detail_poster_iv"
         android:layout_width="wrap_content"
+        android:layout_height="192dp"
+        android:contentDescription="@string/movie_poster"
+        app:layout_constraintLeft_toLeftOf="@id/activity_detail_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_title_tv" />
+
+    <TextView
+        android:id="@+id/activity_detail_release_date_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/movie_title" />
+        app:layout_constraintBottom_toBottomOf="@id/activity_detail_poster_iv"
+        app:layout_constraintLeft_toRightOf="@id/activity_detail_poster_iv"
+        app:layout_constraintTop_toTopOf="@id/activity_detail_poster_iv" />
+
+    <TextView
+        android:id="@+id/activity_detail_vote_average_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/activity_detail_release_date_tv"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_release_date_tv" />
+
+    <TextView
+        android:id="@+id/activity_detail_overview_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/activity_detail_poster_iv"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_poster_iv" />
 </android.support.constraint.ConstraintLayout>
