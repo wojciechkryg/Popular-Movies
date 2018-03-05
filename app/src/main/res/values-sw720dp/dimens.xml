@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="small_margin">32dp</dimen>
+    <dimen name="activity_detail_title_tv_text_size">64sp</dimen>
+    <dimen name="activity_detail_release_date_tv_text_size">44sp</dimen>
+    <dimen name="activity_detail_vote_average_tv_text_size">44sp</dimen>
+    <dimen name="activity_detail_vote_average_tv_padding">32dp</dimen>
+    <dimen name="vote_average_bg_size">32dp</dimen>
+    <dimen name="vote_average_bg_stroke_width">4dp</dimen>
+    <dimen name="activity_detail_poster_iv_width">384dp</dimen>
+    <dimen name="activity_detail_poster_iv_height">575dp</dimen>
+    <dimen name="activity_detail_overview_tv_text_size">32sp</dimen>
+</resources>
