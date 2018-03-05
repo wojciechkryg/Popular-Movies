@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wojdor.popularmovies.application.details.DetailsActivity">
-    
+
     <ImageView
         android:id="@+id/activity_detail_poster_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/movie_title"/>
-
+        android:contentDescription="@string/movie_title" />
 </android.support.constraint.ConstraintLayout>

@@ -10,7 +10,7 @@ import com.wojdor.popularmovies.domain.Movie;
 
 public class DetailsActivity extends BaseActivity implements DetailsContract.View {
 
-    public static final String MOVIE_EXTRA = "movie_extra";
+    public static final String MOVIE_EXTRA = "MOVIE";
 
     private DetailsContract.Presenter presenter;
     private ImageView posterIv;

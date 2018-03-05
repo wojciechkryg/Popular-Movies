@@ -15,7 +15,7 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
-public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View, DiscoveryAdapter.ItemClickListener {
+public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View {
 
     private static final int NUMBER_OF_COLUMNS = 2;
     private static final int FIRST_POSITION = 0;
@@ -36,7 +36,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private void setupMoviesRv() {
         moviesRv = findViewById(R.id.activity_discovery_movies_rv);
-        adapter = new DiscoveryAdapter(this);
+        adapter = new DiscoveryAdapter(movie -> presenter.openMovieDetails(movie));
         moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         moviesRv.setAdapter(adapter);
     }
@@ -114,10 +114,5 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra(DetailsActivity.MOVIE_EXTRA, movie);
         startActivity(intent);
-    }
-
-    @Override
-    public void onItemClick(Movie movie) {
-        presenter.openMovieDetails(movie);
     }
 }
