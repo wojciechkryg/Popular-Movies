@@ -33,7 +33,12 @@ public class DownloadMoviesTask extends AsyncTask<Void, Void, List<Movie>> {
 
     @Override
     protected void onPostExecute(List<Movie> movies) {
-        view.showMovies(movies);
-        view.scrollToTop();
+        if (movies.isEmpty()) {
+            view.showError();
+        } else {
+            view.hideError();
+            view.showMovies(movies);
+            view.scrollToTop();
+        }
     }
 }

@@ -12,6 +12,10 @@ public interface DiscoveryContract {
 
         void showMovies(List<Movie> movies);
 
+        void showError();
+
+        void hideError();
+
         void scrollToTop();
 
         void showMovieDetails(Movie movie);

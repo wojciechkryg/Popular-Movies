@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
@@ -22,6 +24,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private DiscoveryContract.Presenter presenter;
     private Menu menu;
+    private TextView noConnectionTv;
     private RecyclerView moviesRv;
     private DiscoveryAdapter adapter;
 
@@ -30,12 +33,17 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
         setTitle(R.string.popular);
+        initViews();
         setupMoviesRv();
         setupPresenter();
     }
 
-    private void setupMoviesRv() {
+    private void initViews() {
+        noConnectionTv = findViewById(R.id.activity_discovery_no_connection_tv);
         moviesRv = findViewById(R.id.activity_discovery_movies_rv);
+    }
+
+    private void setupMoviesRv() {
         adapter = new DiscoveryAdapter(movie -> presenter.openMovieDetails(movie));
         moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         moviesRv.setAdapter(adapter);
@@ -102,6 +110,18 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     @Override
     public void showMovies(List<Movie> movies) {
         adapter.setMovies(movies);
+    }
+
+    @Override
+    public void showError() {
+        moviesRv.setVisibility(View.GONE);
+        noConnectionTv.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideError() {
+        noConnectionTv.setVisibility(View.GONE);
+        moviesRv.setVisibility(View.VISIBLE);
     }
 
     @Override

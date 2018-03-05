@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="small_margin">24dp</dimen>
+    <dimen name="small_padding">24dp</dimen>
+
+    <dimen name="activity_discovery_no_connection_tv_size">51sp</dimen>
+
     <dimen name="activity_detail_title_tv_text_size">51sp</dimen>
     <dimen name="activity_detail_release_date_tv_text_size">33sp</dimen>
     <dimen name="activity_detail_vote_average_tv_text_size">33sp</dimen>
