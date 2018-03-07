@@ -2,11 +2,13 @@ package com.wojdor.popularmovies.application.discovery;
 
 import com.wojdor.popularmovies.domain.Movie;
 
+import java.util.List;
+
 public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     private final DiscoveryContract.View view;
 
-    public DiscoveryPresenter(DiscoveryContract.View view) {
+    DiscoveryPresenter(DiscoveryContract.View view) {
         this.view = view;
     }
 
@@ -17,12 +19,24 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     @Override
     public void loadPopularMovies() {
-        new DownloadMoviesTask(view, MoviesOrder.POPULAR).execute();
+        new DownloadMoviesTask(this, MoviesOrder.POPULAR).execute();
     }
 
     @Override
     public void loadTopRatedMovies() {
-        new DownloadMoviesTask(view, MoviesOrder.TOP_RATED).execute();
+        new DownloadMoviesTask(this, MoviesOrder.TOP_RATED).execute();
+    }
+
+    @Override
+    public void onLoadSuccess(List<Movie> movies) {
+        view.hideError();
+        view.showMovies(movies);
+        view.scrollToTop();
+    }
+
+    @Override
+    public void onLoadError() {
+        view.showError();
     }
 
     @Override

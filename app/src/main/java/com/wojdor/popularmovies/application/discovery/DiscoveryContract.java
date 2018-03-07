@@ -6,7 +6,7 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
-public interface DiscoveryContract {
+interface DiscoveryContract {
 
     interface View extends BaseView {
 
@@ -26,6 +26,10 @@ public interface DiscoveryContract {
         void loadPopularMovies();
 
         void loadTopRatedMovies();
+
+        void onLoadSuccess(List<Movie> movies);
+
+        void onLoadError();
 
         void openMovieDetails(Movie movie);
     }

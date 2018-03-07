@@ -18,7 +18,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
     private static final int NO_ITEMS_COUNT = 0;
 
     private Context context;
-    private ItemClickListener itemClickListener;
+    private final ItemClickListener itemClickListener;
     private List<Movie> movies;
 
     public DiscoveryAdapter(ItemClickListener itemClickListener) {

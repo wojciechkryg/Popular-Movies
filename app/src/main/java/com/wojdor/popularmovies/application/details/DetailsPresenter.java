@@ -4,8 +4,8 @@ import com.wojdor.popularmovies.domain.Movie;
 
 public class DetailsPresenter implements DetailsContract.Presenter {
 
-    private DetailsContract.View view;
-    private Movie movie;
+    private final DetailsContract.View view;
+    private final Movie movie;
 
     public DetailsPresenter(DetailsContract.View view, Movie movie) {
         this.view = view;

@@ -8,13 +8,13 @@ import com.wojdor.popularmovies.domain.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadMoviesTask extends AsyncTask<Void, Void, List<Movie>> {
+class DownloadMoviesTask extends AsyncTask<Void, Void, List<Movie>> {
 
-    private DiscoveryContract.View view;
-    private MoviesOrder order;
+    private final DiscoveryContract.Presenter presenter;
+    private final MoviesOrder order;
 
-    public DownloadMoviesTask(DiscoveryContract.View view, MoviesOrder order) {
-        this.view = view;
+    public DownloadMoviesTask(DiscoveryContract.Presenter presenter, MoviesOrder order) {
+        this.presenter = presenter;
         this.order = order;
     }
 
@@ -34,11 +34,9 @@ public class DownloadMoviesTask extends AsyncTask<Void, Void, List<Movie>> {
     @Override
     protected void onPostExecute(List<Movie> movies) {
         if (movies.isEmpty()) {
-            view.showError();
+            presenter.onLoadError();
         } else {
-            view.hideError();
-            view.showMovies(movies);
-            view.scrollToTop();
+            presenter.onLoadSuccess(movies);
         }
     }
 }

@@ -21,7 +21,7 @@ public final class MovieModelMapper {
         return instance;
     }
 
-    public Movie map(MovieModel model) {
+    private Movie map(MovieModel model) {
         return new Movie(
                 model.getTitle(),
                 model.getReleaseDate(),

@@ -4,7 +4,7 @@ import com.wojdor.popularmovies.application.base.BasePresenter;
 import com.wojdor.popularmovies.application.base.BaseView;
 import com.wojdor.popularmovies.domain.Movie;
 
-public interface DetailsContract {
+interface DetailsContract {
 
     interface View extends BaseView {
 

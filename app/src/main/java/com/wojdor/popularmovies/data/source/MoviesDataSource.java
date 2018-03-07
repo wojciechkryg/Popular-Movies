@@ -4,7 +4,7 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
-public interface MoviesDataSource {
+interface MoviesDataSource {
 
     List<Movie> getPopularMovies();
 

@@ -85,19 +85,19 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         showPopularMenuItem();
     }
 
-    public void hidePopularMenuItem() {
+    private void hidePopularMenuItem() {
         menu.findItem(R.id.action_popular).setVisible(false);
     }
 
-    public void showPopularMenuItem() {
+    private void showPopularMenuItem() {
         menu.findItem(R.id.action_popular).setVisible(true);
     }
 
-    public void hideTopRatedMenuItem() {
+    private void hideTopRatedMenuItem() {
         menu.findItem(R.id.action_top_rated).setVisible(false);
     }
 
-    public void showTopRatedMenuItem() {
+    private void showTopRatedMenuItem() {
         menu.findItem(R.id.action_top_rated).setVisible(true);
     }
 
