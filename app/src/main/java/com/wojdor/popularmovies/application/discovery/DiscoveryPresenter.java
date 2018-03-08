@@ -28,11 +28,6 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
     }
 
     @Override
-    public void loadMoreMovies() {
-        // TODO
-    }
-
-    @Override
     public void onLoadSuccess(List<Movie> movies) {
         view.hideError();
         view.showMovies(movies);

@@ -1,4 +1,4 @@
-package com.wojdor.popularmovies.application.discovery.adapter;
+package com.wojdor.popularmovies.application.discovery;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,15 +13,15 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
-public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
+public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.MovieViewHolder> {
 
     private static final int NO_ITEMS_COUNT = 0;
 
-    private Context context;
     private final OnItemClickListener onItemClickListener;
+    private Context context;
     private List<Movie> movies;
 
-    public DiscoveryAdapter(OnItemClickListener onItemClickListener) {
+    DiscoveryAdapter(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -30,7 +30,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_movie, parent, false);
-        return new MovieViewHolder(view, movies, onItemClickListener);
+        return new MovieViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -40,7 +40,10 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     }
 
     private void setupPosterIv(ImageView posterIv, Movie movie) {
-        Picasso.with(context).load(movie.getPosterUrl()).into(posterIv);
+        Picasso.with(context)
+                .load(movie.getPosterUrl())
+                .error(R.drawable.ic_movie_poster_placeholder)
+                .into(posterIv);
         posterIv.setContentDescription(movie.getTitle());
     }
 
@@ -49,7 +52,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         return movies == null ? NO_ITEMS_COUNT : movies.size();
     }
 
-    public void setMovies(List<Movie> movies) {
+    void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
@@ -57,5 +60,25 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public interface OnItemClickListener {
 
         void onItemClick(Movie movie);
+    }
+
+    class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        final ImageView posterIv;
+        private DiscoveryAdapter.OnItemClickListener onItemClickListener;
+
+        MovieViewHolder(View view, DiscoveryAdapter.OnItemClickListener onItemClickListener) {
+            super(view);
+            this.onItemClickListener = onItemClickListener;
+            posterIv = view.findViewById(R.id.item_movie_poster_iv);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            Movie movie = movies.get(clickedPosition);
+            onItemClickListener.onItemClick(movie);
+        }
     }
 }

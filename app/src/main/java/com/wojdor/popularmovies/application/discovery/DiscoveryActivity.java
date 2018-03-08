@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
 import com.wojdor.popularmovies.application.details.DetailsActivity;
-import com.wojdor.popularmovies.application.discovery.adapter.DiscoveryAdapter;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
@@ -49,23 +48,6 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         adapter = new DiscoveryAdapter(movie -> presenter.openMovieDetails(movie));
         moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         moviesRv.setAdapter(adapter);
-        moviesRv.addOnScrollListener(getOnScrollListener());
-    }
-
-    @NonNull
-    private RecyclerView.OnScrollListener getOnScrollListener() {
-        return new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-                int visibleItemCount = layoutManager.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
-                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                    presenter.loadMoreMovies();
-                }
-            }
-        };
     }
 
     @Override

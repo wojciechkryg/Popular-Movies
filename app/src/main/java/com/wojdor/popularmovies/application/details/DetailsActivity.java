@@ -51,11 +51,18 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     @Override
     public void showDetails(Movie movie) {
         titleTv.setText(movie.getTitle());
-        Picasso.with(this).load(movie.getPosterUrl()).into(posterIv);
-        posterIv.setContentDescription(movie.getTitle());
+        setupPosterIv(movie);
         releaseDateTv.setText(movie.getReleaseDate());
         voteAverageTv.setText(String.format(Locale.getDefault(), AVERAGE_FORMAT,
                 movie.getVoteAverage()));
         overviewTv.setText(movie.getOverview());
+    }
+
+    private void setupPosterIv(Movie movie) {
+        Picasso.with(this)
+                .load(movie.getPosterUrl())
+                .error(R.drawable.ic_movie_poster_placeholder)
+                .into(posterIv);
+        posterIv.setContentDescription(movie.getTitle());
     }
 }
