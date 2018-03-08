@@ -27,6 +27,8 @@ interface DiscoveryContract {
 
         void loadTopRatedMovies();
 
+        void loadMoreMovies();
+
         void onLoadSuccess(List<Movie> movies);
 
         void onLoadError();

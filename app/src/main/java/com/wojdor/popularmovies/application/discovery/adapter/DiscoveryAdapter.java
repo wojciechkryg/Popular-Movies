@@ -1,4 +1,4 @@
-package com.wojdor.popularmovies.application.discovery;
+package com.wojdor.popularmovies.application.discovery.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,28 +13,28 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
-public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.DiscoveryAdapterViewHolder> {
+public class DiscoveryAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private static final int NO_ITEMS_COUNT = 0;
 
     private Context context;
-    private final ItemClickListener itemClickListener;
+    private final OnItemClickListener onItemClickListener;
     private List<Movie> movies;
 
-    public DiscoveryAdapter(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public DiscoveryAdapter(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
-    public DiscoveryAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_movie, parent, false);
-        return new DiscoveryAdapterViewHolder(view);
+        return new MovieViewHolder(view, movies, onItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(DiscoveryAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         setupPosterIv(holder.posterIv, movie);
     }
@@ -54,26 +54,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.Disc
         notifyDataSetChanged();
     }
 
-    public interface ItemClickListener {
+    public interface OnItemClickListener {
 
         void onItemClick(Movie movie);
-    }
-
-    public class DiscoveryAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        public final ImageView posterIv;
-
-        public DiscoveryAdapterViewHolder(View view) {
-            super(view);
-            posterIv = view.findViewById(R.id.item_movie_poster_iv);
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int clickedPosition = getAdapterPosition();
-            Movie movie = movies.get(clickedPosition);
-            itemClickListener.onItemClick(movie);
-        }
     }
 }
