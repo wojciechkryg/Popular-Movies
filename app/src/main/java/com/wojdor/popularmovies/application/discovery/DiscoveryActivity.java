@@ -2,9 +2,9 @@ package com.wojdor.popularmovies.application.discovery;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +20,8 @@ import java.util.List;
 
 public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View {
 
-    private static final int NUMBER_OF_COLUMNS = 2;
+    private static final int MIN_NUMBER_OF_COLUMNS = 2;
+    private static final int COLUMN_WIDTH_DIVIDER = 300;
     private static final int FIRST_POSITION = 0;
 
     private DiscoveryContract.Presenter presenter;
@@ -46,8 +47,16 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private void setupMoviesRv() {
         adapter = new DiscoveryAdapter(movie -> presenter.openMovieDetails(movie));
-        moviesRv.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
+        moviesRv.setLayoutManager(new GridLayoutManager(this, calculateNumberOfColumns()));
         moviesRv.setAdapter(adapter);
+    }
+
+    private int calculateNumberOfColumns() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int numberOfColumns = displayMetrics.widthPixels / COLUMN_WIDTH_DIVIDER;
+        if (numberOfColumns < MIN_NUMBER_OF_COLUMNS) return MIN_NUMBER_OF_COLUMNS;
+        return numberOfColumns;
     }
 
     @Override
