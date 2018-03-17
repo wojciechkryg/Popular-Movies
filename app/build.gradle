@@ -30,6 +30,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$android_support_version"
     implementation "com.android.support:recyclerview-v7:$android_support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "com.jakewharton:butterknife:$butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
     implementation "com.squareup.picasso:picasso:$picasso_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$runner_version"

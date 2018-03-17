@@ -9,6 +9,7 @@ buildscript {
         gradle_version = '3.0.1'
         android_support_version = '27.0.2'
         constraint_layout_version = '1.0.2'
+        butterknife_version = '8.8.1'
         picasso_version = '2.5.2'
         junit_version = '4.12'
         runner_version = '1.0.1'

@@ -18,31 +18,32 @@ import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View {
 
     private static final int MIN_NUMBER_OF_COLUMNS = 2;
     private static final int COLUMN_WIDTH_DIVIDER = 300;
     private static final int FIRST_POSITION = 0;
 
+    @BindView(R.id.activity_discovery_no_connection_tv)
+    TextView noConnectionTv;
+    @BindView(R.id.activity_discovery_movies_rv)
+    RecyclerView moviesRv;
+
     private DiscoveryContract.Presenter presenter;
     private Menu menu;
-    private TextView noConnectionTv;
-    private RecyclerView moviesRv;
     private DiscoveryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
+        ButterKnife.bind(this);
         setTitle(R.string.popular);
-        initViews();
         setupMoviesRv();
         setupPresenter();
-    }
-
-    private void initViews() {
-        noConnectionTv = findViewById(R.id.activity_discovery_no_connection_tv);
-        moviesRv = findViewById(R.id.activity_discovery_movies_rv);
     }
 
     private void setupMoviesRv() {
