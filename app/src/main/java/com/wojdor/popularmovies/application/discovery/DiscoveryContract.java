@@ -29,7 +29,7 @@ interface DiscoveryContract {
 
         void onLoadSuccess(List<Movie> movies);
 
-        void onLoadError();
+        <T extends Throwable> void onLoadError(T error);
 
         void openMovieDetails(Movie movie);
     }

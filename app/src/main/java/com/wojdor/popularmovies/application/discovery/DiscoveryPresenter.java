@@ -1,9 +1,9 @@
 package com.wojdor.popularmovies.application.discovery;
 
-import com.wojdor.popularmovies.data.utils.MovieModelMapper;
 import com.wojdor.popularmovies.data.model.MovieModel;
-import com.wojdor.popularmovies.data.source.service.MoviesService;
 import com.wojdor.popularmovies.data.response.MoviesResponse;
+import com.wojdor.popularmovies.data.source.service.MoviesService;
+import com.wojdor.popularmovies.data.utils.MovieModelMapper;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
@@ -30,8 +30,7 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         MoviesService.getInstance().getPopularMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse,
-                        error -> onLoadError());
+                .subscribe(this::onLoadResponse, this::onLoadError);
     }
 
     @Override
@@ -40,8 +39,7 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         MoviesService.getInstance().getTopRatedMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse,
-                        error -> onLoadError());
+                .subscribe(this::onLoadResponse, this::onLoadError);
     }
 
     private void onLoadResponse(MoviesResponse moviesResponse) {
@@ -58,7 +56,7 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
     }
 
     @Override
-    public void onLoadError() {
+    public <T extends Throwable> void onLoadError(T error) {
         view.showError();
     }
 
