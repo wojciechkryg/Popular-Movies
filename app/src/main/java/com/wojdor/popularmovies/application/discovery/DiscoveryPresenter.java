@@ -1,8 +1,15 @@
 package com.wojdor.popularmovies.application.discovery;
 
+import com.wojdor.popularmovies.data.utils.MovieModelMapper;
+import com.wojdor.popularmovies.data.model.MovieModel;
+import com.wojdor.popularmovies.data.source.service.MoviesService;
+import com.wojdor.popularmovies.data.response.MoviesResponse;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
@@ -19,12 +26,28 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     @Override
     public void loadPopularMovies() {
-        new DownloadMoviesTask(this, MoviesOrder.POPULAR).execute();
+        // TODO: Disposable
+        MoviesService.getInstance().getPopularMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onLoadResponse,
+                        error -> onLoadError());
     }
 
     @Override
     public void loadTopRatedMovies() {
-        new DownloadMoviesTask(this, MoviesOrder.TOP_RATED).execute();
+        // TODO: Disposable
+        MoviesService.getInstance().getTopRatedMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onLoadResponse,
+                        error -> onLoadError());
+    }
+
+    private void onLoadResponse(MoviesResponse moviesResponse) {
+        List<MovieModel> movieModels = moviesResponse.getResults();
+        List<Movie> movies = MovieModelMapper.getInstance().map(movieModels);
+        onLoadSuccess(movies);
     }
 
     @Override

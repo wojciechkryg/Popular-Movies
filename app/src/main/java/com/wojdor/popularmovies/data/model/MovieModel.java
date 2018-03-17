@@ -1,21 +1,20 @@
 package com.wojdor.popularmovies.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class MovieModel {
 
-    private final String title;
-    private final String releaseDate;
-    private final String posterPath;
-    private final double voteAverage;
-    private final String overview;
-
-    public MovieModel(String title, String releaseDate, String posterPath, double voteAverage,
-                      String overview) {
-        this.title = title;
-        this.releaseDate = releaseDate;
-        this.posterPath = posterPath;
-        this.voteAverage = voteAverage;
-        this.overview = overview;
-    }
+    @Expose
+    private String title;
+    @SerializedName("release_date")
+    private String releaseDate;
+    @SerializedName("poster_path")
+    private String posterPath;
+    @SerializedName("vote_average")
+    private double voteAverage;
+    @Expose
+    private String overview;
 
     public String getTitle() {
         return title;

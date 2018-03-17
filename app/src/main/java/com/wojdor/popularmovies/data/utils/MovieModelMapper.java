@@ -1,7 +1,6 @@
-package com.wojdor.popularmovies.data.mapper;
+package com.wojdor.popularmovies.data.utils;
 
 import com.wojdor.popularmovies.data.model.MovieModel;
-import com.wojdor.popularmovies.data.utils.PosterUtils;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.ArrayList;
