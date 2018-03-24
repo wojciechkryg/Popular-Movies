@@ -17,14 +17,16 @@ public class Movie implements Parcelable {
         }
     };
 
+    private final int id;
     private final String title;
     private final String releaseDate;
     private final String posterUrl;
     private final double voteAverage;
     private final String overview;
 
-    public Movie(String title, String releaseDate, String posterUrl, double voteAverage,
+    public Movie(int id, String title, String releaseDate, String posterUrl, double voteAverage,
                  String overview) {
+        this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.posterUrl = posterUrl;
@@ -33,11 +35,16 @@ public class Movie implements Parcelable {
     }
 
     private Movie(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         releaseDate = in.readString();
         posterUrl = in.readString();
         voteAverage = in.readDouble();
         overview = in.readString();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -67,6 +74,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(releaseDate);
         dest.writeString(posterUrl);

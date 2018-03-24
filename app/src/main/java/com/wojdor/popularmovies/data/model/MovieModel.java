@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 public class MovieModel {
 
     @Expose
+    private Integer id;
+    @Expose
     private String title;
     @SerializedName("release_date")
     private String releaseDate;
@@ -15,6 +17,10 @@ public class MovieModel {
     private double voteAverage;
     @Expose
     private String overview;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

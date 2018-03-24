@@ -22,6 +22,7 @@ public final class MovieModelMapper {
 
     private Movie map(MovieModel model) {
         return new Movie(
+                model.getId(),
                 model.getTitle(),
                 model.getReleaseDate(),
                 PosterUtils.getInstance().getPosterUrl(model.getPosterPath()),
