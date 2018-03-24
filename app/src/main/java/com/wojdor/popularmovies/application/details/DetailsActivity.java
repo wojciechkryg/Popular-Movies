@@ -1,6 +1,7 @@
 package com.wojdor.popularmovies.application.details;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     TextView voteAverageTv;
     @BindView(R.id.activity_detail_overview_tv)
     TextView overviewTv;
+    @BindView(R.id.activity_detail_trailers_rv)
+    RecyclerView trailersRv;
 
     private DetailsContract.Presenter presenter;
 
@@ -42,7 +45,12 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
         setTitle(R.string.details);
+        setupTrailersRv();
         setupPresenter();
+    }
+
+    private void setupTrailersRv() {
+        // TODO: create adapter and setup trailers recycler view
     }
 
     @Override

@@ -84,5 +84,11 @@
             app:layout_constraintRight_toRightOf="@id/activity_detail_title_tv"
             app:layout_constraintTop_toBottomOf="@id/activity_detail_poster_iv"
             tools:text="This is the overview from selected movie." />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_detail_trailers_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_detail_overview_tv" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
