@@ -61,6 +61,12 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDetachView();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         MenuInflater inflater = getMenuInflater();
@@ -115,7 +121,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     @Override
     public void setupPresenter() {
         presenter = new DiscoveryPresenter(this);
-        presenter.start();
+        presenter.onAttachView();
     }
 
     @Override

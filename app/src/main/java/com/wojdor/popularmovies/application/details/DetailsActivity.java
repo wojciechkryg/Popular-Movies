@@ -43,10 +43,16 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDetachView();
+    }
+
+    @Override
     public void setupPresenter() {
         Movie movie = getIntent().getParcelableExtra(MOVIE_EXTRA);
         presenter = new DetailsPresenter(this, movie);
-        presenter.start();
+        presenter.onAttachView();
     }
 
     @Override

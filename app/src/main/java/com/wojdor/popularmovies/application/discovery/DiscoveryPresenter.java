@@ -9,37 +9,42 @@ import com.wojdor.popularmovies.domain.Movie;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     private final DiscoveryContract.View view;
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     DiscoveryPresenter(DiscoveryContract.View view) {
         this.view = view;
     }
 
     @Override
-    public void start() {
+    public void onAttachView() {
         loadPopularMovies();
     }
 
     @Override
+    public void onDetachView() {
+        disposables.clear();
+    }
+
+    @Override
     public void loadPopularMovies() {
-        // TODO: Disposable
-        MoviesService.getInstance().getPopularMovies()
+        disposables.add(MoviesService.getInstance().getPopularMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse, this::onLoadError);
+                .subscribe(this::onLoadResponse, this::onLoadError));
     }
 
     @Override
     public void loadTopRatedMovies() {
-        // TODO: Disposable
-        MoviesService.getInstance().getTopRatedMovies()
+        disposables.add(MoviesService.getInstance().getTopRatedMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse, this::onLoadError);
+                .subscribe(this::onLoadResponse, this::onLoadError));
     }
 
     private void onLoadResponse(MoviesResponse moviesResponse) {
