@@ -8,7 +8,10 @@ import com.squareup.picasso.Picasso;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
 import com.wojdor.popularmovies.domain.Movie;
+import com.wojdor.popularmovies.domain.Review;
+import com.wojdor.popularmovies.domain.Trailer;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -63,6 +66,16 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         voteAverageTv.setText(String.format(Locale.getDefault(), AVERAGE_FORMAT,
                 movie.getVoteAverage()));
         overviewTv.setText(movie.getOverview());
+    }
+
+    @Override
+    public void showReviews(List<Review> reviews) {
+        // TODO: show reviews
+    }
+
+    @Override
+    public void showTrailers(List<Trailer> trailers) {
+        // TODO: show trailers
     }
 
     private void setupPosterIv(Movie movie) {

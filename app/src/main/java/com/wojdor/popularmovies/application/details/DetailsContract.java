@@ -13,18 +13,16 @@ interface DetailsContract {
     interface View extends BaseView {
 
         void showDetails(Movie movie);
+
+        void showReviews(List<Review> reviews);
+
+        void showTrailers(List<Trailer> trailers);
     }
 
     interface Presenter extends BasePresenter {
 
         void loadReviews();
 
-        void onReviewsLoadSuccess(List<Review> reviews);
-
         void loadTrailers();
-
-        void onTrailersLoadSuccess(List<Trailer> trailers);
-
-        <T extends Throwable> void onLoadError(T error);
     }
 }

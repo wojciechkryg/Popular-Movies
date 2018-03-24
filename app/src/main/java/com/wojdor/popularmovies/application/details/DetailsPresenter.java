@@ -51,12 +51,7 @@ public class DetailsPresenter implements DetailsContract.Presenter {
     private void onLoadReviewsResponse(ReviewsResponse reviewsResponse) {
         List<ReviewModel> reviewModels = reviewsResponse.getResults();
         List<Review> reviews = ReviewModelMapper.getInstance().map(reviewModels);
-        onReviewsLoadSuccess(reviews);
-    }
-
-    @Override
-    public void onReviewsLoadSuccess(List<Review> reviews) {
-        // TODO: show reviews
+        view.showReviews(reviews);
     }
 
     @Override
@@ -70,16 +65,10 @@ public class DetailsPresenter implements DetailsContract.Presenter {
     private void onLoadTrailersResponse(TrailersResponse trailersResponse) {
         List<TrailerModel> trailerModels = trailersResponse.getResults();
         List<Trailer> trailers = TrailerModelMapper.getInstance().map(trailerModels);
-        onTrailersLoadSuccess(trailers);
+        view.showTrailers(trailers);
     }
 
-    @Override
-    public void onTrailersLoadSuccess(List<Trailer> trailers) {
-        // TODO: show trailers
-    }
-
-    @Override
-    public <T extends Throwable> void onLoadError(T error) {
+    private <T extends Throwable> void onLoadError(T error) {
         // TODO: show error
     }
 }

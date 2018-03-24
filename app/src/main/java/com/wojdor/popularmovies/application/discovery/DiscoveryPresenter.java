@@ -36,7 +36,7 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         disposables.add(MoviesService.getInstance().getPopularMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse, this::onLoadError));
+                .subscribe(this::onLoadMoviesResponse, this::onLoadError));
     }
 
     @Override
@@ -44,24 +44,22 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         disposables.add(MoviesService.getInstance().getTopRatedMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoadResponse, this::onLoadError));
+                .subscribe(this::onLoadMoviesResponse, this::onLoadError));
     }
 
-    private void onLoadResponse(MoviesResponse moviesResponse) {
+    private void onLoadMoviesResponse(MoviesResponse moviesResponse) {
         List<MovieModel> movieModels = moviesResponse.getResults();
         List<Movie> movies = MovieModelMapper.getInstance().map(movieModels);
-        onLoadSuccess(movies);
+        onLoadMovies(movies);
     }
 
-    @Override
-    public void onLoadSuccess(List<Movie> movies) {
+    private void onLoadMovies(List<Movie> movies) {
         view.hideError();
         view.showMovies(movies);
         view.scrollToTop();
     }
 
-    @Override
-    public <T extends Throwable> void onLoadError(T error) {
+    private <T extends Throwable> void onLoadError(T error) {
         view.showError();
     }
 

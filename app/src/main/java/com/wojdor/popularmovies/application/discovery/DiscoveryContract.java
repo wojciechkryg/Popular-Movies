@@ -27,10 +27,6 @@ interface DiscoveryContract {
 
         void loadTopRatedMovies();
 
-        void onLoadSuccess(List<Movie> movies);
-
-        <T extends Throwable> void onLoadError(T error);
-
         void openMovieDetails(Movie movie);
     }
 }
