@@ -2,7 +2,9 @@ package com.wojdor.popularmovies.application.details;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +53,11 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     }
 
     private void setupTrailersRv() {
+        addTrailerAdapter();
+        addSnappingToTrailers();
+    }
+
+    private void addTrailerAdapter() {
         adapter = new TrailerAdapter(trailer -> {
             // TODO: open browser or youtube with video url
         });
@@ -58,6 +65,11 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
                 LinearLayoutManager.HORIZONTAL, false);
         trailersRv.setLayoutManager(layoutManager);
         trailersRv.setAdapter(adapter);
+    }
+
+    private void addSnappingToTrailers() {
+        SnapHelper helper = new LinearSnapHelper();
+        helper.attachToRecyclerView(trailersRv);
     }
 
     @Override
