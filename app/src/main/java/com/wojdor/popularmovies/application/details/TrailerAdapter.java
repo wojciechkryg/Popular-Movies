@@ -29,8 +29,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     public TrailerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        // TODO: change trailer item layout
-        View view = inflater.inflate(R.layout.item_movie, parent, false);
+        View view = inflater.inflate(R.layout.item_trailer, parent, false);
         return new TrailerViewHolder(view, onItemClickListener);
     }
 
@@ -71,7 +70,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         TrailerViewHolder(View view, TrailerAdapter.OnItemClickListener onItemClickListener) {
             super(view);
             this.onItemClickListener = onItemClickListener;
-            trailerIv = view.findViewById(R.id.item_movie_poster_iv);
+            trailerIv = view.findViewById(R.id.item_trailer_trailer_iv);
             view.setOnClickListener(this);
         }
 

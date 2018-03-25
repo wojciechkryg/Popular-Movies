@@ -8,4 +8,6 @@
     <string name="details">Details</string>
 
     <string name="movie_poster">Movie Poster</string>
+    <string name="movie_trailer">Movie Trailer</string>
+    <string name="trailer_play">Play Trailer</string>
 </resources>
