@@ -22,7 +22,8 @@ public final class TrailerModelMapper {
 
     private Trailer map(TrailerModel model) {
         return new Trailer(
-                model.getKey(),
+                UrlUtils.getInstance().getTrailerVideoUrl(model.getKey()),
+                UrlUtils.getInstance().getTrailerThumbnailUrl(model.getKey()),
                 model.getName()
         );
     }

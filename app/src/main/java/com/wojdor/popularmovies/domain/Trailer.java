@@ -2,16 +2,22 @@ package com.wojdor.popularmovies.domain;
 
 public class Trailer {
 
-    private String key;
+    private String videoUrl;
+    private String thumbnailUrl;
     private String name;
 
-    public Trailer(String key, String name) {
-        this.key = key;
+    public Trailer(String videoUrl, String thumbnailUrl, String name) {
+        this.videoUrl = videoUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     public String getName() {

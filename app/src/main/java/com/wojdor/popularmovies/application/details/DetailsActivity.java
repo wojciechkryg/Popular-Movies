@@ -1,6 +1,7 @@
 package com.wojdor.popularmovies.application.details;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     RecyclerView trailersRv;
 
     private DetailsContract.Presenter presenter;
-
+    private TrailerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,13 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     }
 
     private void setupTrailersRv() {
-        // TODO: create adapter and setup trailers recycler view
+        adapter = new TrailerAdapter(trailer -> {
+            // TODO: open browser or youtube with video url
+        });
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        trailersRv.setLayoutManager(layoutManager);
+        trailersRv.setAdapter(adapter);
     }
 
     @Override
@@ -83,7 +90,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
 
     @Override
     public void showTrailers(List<Trailer> trailers) {
-        // TODO: show trailers
+        adapter.setTrailers(trailers);
     }
 
     private void setupPosterIv(Movie movie) {

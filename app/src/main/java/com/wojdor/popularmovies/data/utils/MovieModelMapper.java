@@ -25,7 +25,7 @@ public final class MovieModelMapper {
                 model.getId(),
                 model.getTitle(),
                 model.getReleaseDate(),
-                PosterUtils.getInstance().getPosterUrl(model.getPosterPath()),
+                UrlUtils.getInstance().getPosterUrl(model.getPosterPath()),
                 model.getVoteAverage(),
                 model.getOverview()
         );
