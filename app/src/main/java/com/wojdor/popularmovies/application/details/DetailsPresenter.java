@@ -62,6 +62,11 @@ public class DetailsPresenter implements DetailsContract.Presenter {
                 .subscribe(this::onLoadTrailersResponse, this::onLoadError));
     }
 
+    @Override
+    public void openTrailer(Trailer trailer) {
+        view.showTrailer(trailer.getVideoUrl());
+    }
+
     private void onLoadTrailersResponse(TrailersResponse trailersResponse) {
         List<TrailerModel> trailerModels = trailersResponse.getResults();
         List<Trailer> trailers = TrailerModelMapper.getInstance().map(trailerModels);

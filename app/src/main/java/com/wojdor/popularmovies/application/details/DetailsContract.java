@@ -17,6 +17,8 @@ interface DetailsContract {
         void showReviews(List<Review> reviews);
 
         void showTrailers(List<Trailer> trailers);
+
+        void showTrailer(String videoUrl);
     }
 
     interface Presenter extends BasePresenter {
@@ -24,5 +26,7 @@ interface DetailsContract {
         void loadReviews();
 
         void loadTrailers();
+
+        void openTrailer(Trailer trailer);
     }
 }

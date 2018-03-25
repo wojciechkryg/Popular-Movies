@@ -1,5 +1,7 @@
 package com.wojdor.popularmovies.application.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -58,9 +60,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     }
 
     private void addTrailerAdapter() {
-        adapter = new TrailerAdapter(trailer -> {
-            // TODO: open browser or youtube with video url
-        });
+        adapter = new TrailerAdapter(trailer -> presenter.openTrailer(trailer));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         trailersRv.setLayoutManager(layoutManager);
@@ -103,6 +103,14 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     @Override
     public void showTrailers(List<Trailer> trailers) {
         adapter.setTrailers(trailers);
+    }
+
+    @Override
+    public void showTrailer(String videoUrl) {
+        Uri url = Uri.parse(videoUrl);
+        Intent intent = new Intent(Intent.ACTION_VIEW, url);
+        if (intent.resolveActivity(getPackageManager()) == null) return;
+        startActivity(intent);
     }
 
     private void setupPosterIv(Movie movie) {
