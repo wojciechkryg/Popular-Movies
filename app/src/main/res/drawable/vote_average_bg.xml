@@ -3,6 +3,6 @@
     android:shape="oval">
 
     <stroke
-        android:width="@dimen/vote_average_bg_stroke_width"
+        android:width="@dimen/activity_details_vote_average_bg_stroke_width"
         android:color="@color/colorAccent" />
 </shape>

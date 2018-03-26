@@ -6,16 +6,19 @@
 
     <dimen name="activity_discovery_no_connection_tv_size">34sp</dimen>
 
-    <dimen name="activity_detail_title_tv_text_size">34sp</dimen>
-    <dimen name="activity_detail_release_date_tv_text_size">22sp</dimen>
-    <dimen name="activity_detail_vote_average_tv_text_size">22sp</dimen>
-    <dimen name="activity_detail_vote_average_tv_padding">16dp</dimen>
-    <dimen name="vote_average_bg_size">80dp</dimen>
-    <dimen name="vote_average_bg_stroke_width">2dp</dimen>
-    <dimen name="activity_detail_poster_iv_width">192dp</dimen>
-    <dimen name="activity_detail_poster_iv_height">287dp</dimen>
-    <dimen name="activity_detail_overview_tv_text_size">16sp</dimen>
+    <dimen name="activity_details_title_tv_text_size">34sp</dimen>
+    <dimen name="activity_details_release_date_tv_text_size">22sp</dimen>
+    <dimen name="activity_details_vote_average_tv_text_size">22sp</dimen>
+    <dimen name="activity_details_vote_average_tv_padding">16dp</dimen>
+    <dimen name="activity_details_vote_average_bg_size">80dp</dimen>
+    <dimen name="activity_details_vote_average_bg_stroke_width">2dp</dimen>
+    <dimen name="activity_details_poster_iv_width">192dp</dimen>
+    <dimen name="activity_details_poster_iv_height">287dp</dimen>
+    <dimen name="activity_details_overview_tv_text_size">16sp</dimen>
+    <dimen name="activity_details_trailer_tv_text_size">16sp</dimen>
+    <dimen name="activity_details_review_tv_text_size">16sp</dimen>
 
     <dimen name="item_review_width">256dp</dimen>
     <dimen name="item_review_height">256dp</dimen>
+    <dimen name="item_review_content_text_size">16sp</dimen>
 </resources>
