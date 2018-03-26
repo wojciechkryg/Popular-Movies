@@ -40,9 +40,12 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     TextView overviewTv;
     @BindView(R.id.activity_detail_trailers_rv)
     RecyclerView trailersRv;
+    @BindView(R.id.activity_detail_reviews_rv)
+    RecyclerView reviewsRv;
 
     private DetailsContract.Presenter presenter;
-    private TrailerAdapter adapter;
+    private TrailerAdapter trailerAdapter;
+    private ReviewAdapter reviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +54,39 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         ButterKnife.bind(this);
         setTitle(R.string.details);
         setupTrailersRv();
+        setupReviewsRv();
         setupPresenter();
     }
 
     private void setupTrailersRv() {
         addTrailerAdapter();
-        addSnappingToTrailers();
+        addSnapping(trailersRv);
     }
 
     private void addTrailerAdapter() {
-        adapter = new TrailerAdapter(trailer -> presenter.openTrailer(trailer));
+        trailerAdapter = new TrailerAdapter(trailer -> presenter.openTrailer(trailer));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         trailersRv.setLayoutManager(layoutManager);
-        trailersRv.setAdapter(adapter);
+        trailersRv.setAdapter(trailerAdapter);
     }
 
-    private void addSnappingToTrailers() {
+    private void addSnapping(RecyclerView recyclerView) {
         SnapHelper helper = new LinearSnapHelper();
-        helper.attachToRecyclerView(trailersRv);
+        helper.attachToRecyclerView(recyclerView);
+    }
+
+    private void setupReviewsRv() {
+        addReviewAdapter();
+        addSnapping(reviewsRv);
+    }
+
+    private void addReviewAdapter() {
+        reviewAdapter = new ReviewAdapter();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        reviewsRv.setLayoutManager(layoutManager);
+        reviewsRv.setAdapter(reviewAdapter);
     }
 
     @Override
@@ -97,12 +114,12 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
 
     @Override
     public void showReviews(List<Review> reviews) {
-        // TODO: show reviews
+        reviewAdapter.setReviews(reviews);
     }
 
     @Override
     public void showTrailers(List<Trailer> trailers) {
-        adapter.setTrailers(trailers);
+        trailerAdapter.setTrailers(trailers);
     }
 
     @Override

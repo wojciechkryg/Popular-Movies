@@ -7,7 +7,7 @@ buildscript {
         version_name = "1.0"
 
         gradle_version = '3.0.1'
-        android_support_version = '27.0.2'
+        android_support_version = '27.1.0'
         constraint_layout_version = '1.0.2'
         butterknife_version = '8.8.1'
         picasso_version = '2.5.2'

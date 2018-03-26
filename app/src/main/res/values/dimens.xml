@@ -2,6 +2,7 @@
 <resources>
     <dimen name="small_margin">16dp</dimen>
     <dimen name="small_padding">16dp</dimen>
+    <dimen name="card_view_radius">8dp</dimen>
 
     <dimen name="activity_discovery_no_connection_tv_size">34sp</dimen>
 
@@ -14,4 +15,7 @@
     <dimen name="activity_detail_poster_iv_width">192dp</dimen>
     <dimen name="activity_detail_poster_iv_height">287dp</dimen>
     <dimen name="activity_detail_overview_tv_text_size">16sp</dimen>
+
+    <dimen name="item_review_width">256dp</dimen>
+    <dimen name="item_review_height">256dp</dimen>
 </resources>
