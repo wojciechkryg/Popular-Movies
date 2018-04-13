@@ -4,6 +4,7 @@ import com.wojdor.popularmovies.data.model.ReviewModel;
 import com.wojdor.popularmovies.data.model.TrailerModel;
 import com.wojdor.popularmovies.data.response.ReviewsResponse;
 import com.wojdor.popularmovies.data.response.TrailersResponse;
+import com.wojdor.popularmovies.data.source.device.MoviesDatabase;
 import com.wojdor.popularmovies.data.source.service.MoviesService;
 import com.wojdor.popularmovies.data.utils.ReviewModelMapper;
 import com.wojdor.popularmovies.data.utils.TrailerModelMapper;
@@ -21,10 +22,12 @@ public class DetailsPresenter implements DetailsContract.Presenter {
 
     private final DetailsContract.View view;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    private final MoviesDatabase database;
     private final Movie movie;
 
-    public DetailsPresenter(DetailsContract.View view, Movie movie) {
+    public DetailsPresenter(DetailsContract.View view, MoviesDatabase database, Movie movie) {
         this.view = view;
+        this.database = database;
         this.movie = movie;
     }
 
@@ -69,18 +72,19 @@ public class DetailsPresenter implements DetailsContract.Presenter {
 
     @Override
     public void addMovieToFavourites() {
-        // TODO: add movie to favourites
+        database.add(movie);
+        view.setupFavouriteIcon();
     }
 
     @Override
     public void deleteMovieFromFavourites() {
-        // TODO: add movie from favourites
+        database.delete(movie);
+        view.setupFavouriteIcon();
     }
 
     @Override
     public boolean isMovieFavourite() {
-        // TODO: check if it is favourite movie from db
-        return false;
+        return database.contains(movie);
     }
 
     private void onLoadTrailersResponse(TrailersResponse trailersResponse) {

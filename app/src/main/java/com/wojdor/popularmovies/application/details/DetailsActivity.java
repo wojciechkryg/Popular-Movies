@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
+import com.wojdor.popularmovies.data.source.device.MoviesDatabase;
 import com.wojdor.popularmovies.domain.Movie;
 import com.wojdor.popularmovies.domain.Review;
 import com.wojdor.popularmovies.domain.Trailer;
@@ -54,9 +55,9 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     @OnClick(R.id.activity_detail_favourite_fab)
     public void onFavouriteFabClick() {
         if (presenter.isMovieFavourite()) {
-            presenter.addMovieToFavourites();
-        } else {
             presenter.deleteMovieFromFavourites();
+        } else {
+            presenter.addMovieToFavourites();
         }
     }
 
@@ -112,7 +113,8 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     @Override
     public void setupPresenter() {
         Movie movie = getIntent().getParcelableExtra(MOVIE_EXTRA);
-        presenter = new DetailsPresenter(this, movie);
+        MoviesDatabase database = new MoviesDatabase(getContentResolver());
+        presenter = new DetailsPresenter(this, database, movie);
         presenter.onAttachView();
     }
 

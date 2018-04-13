@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,8 +16,6 @@ import static com.wojdor.popularmovies.data.source.device.MoviesContract.MovieEn
 public class MoviesProvider extends ContentProvider {
 
     public final static Uri CONTENT_URI = BASE_CONTENT_URI;
-
-    private final static int DEFAULT_ID = 0;
 
     private MoviesDbHelper dbHelper;
 
@@ -50,11 +47,8 @@ public class MoviesProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        long rowId = insert(values);
-        if (rowId > DEFAULT_ID) {
-            return refreshAfterInsert(rowId);
-        }
-        throw new SQLException(uri.toString());
+        long id = insert(values);
+        return refreshAfterInsert(id);
     }
 
     private long insert(ContentValues values) {
