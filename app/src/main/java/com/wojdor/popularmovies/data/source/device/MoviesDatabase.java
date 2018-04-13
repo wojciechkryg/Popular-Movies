@@ -3,6 +3,7 @@ package com.wojdor.popularmovies.data.source.device;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 
 import com.wojdor.popularmovies.domain.Movie;
 
@@ -19,6 +20,11 @@ public class MoviesDatabase {
     }
 
     public void add(Movie movie) {
+        contentResolver.insert(MoviesProvider.CONTENT_URI, getContentValuesForMovie(movie));
+    }
+
+    @NonNull
+    private ContentValues getContentValuesForMovie(Movie movie) {
         ContentValues values = new ContentValues();
         values.put(MovieEntry.COLUMN_ID, movie.getId());
         values.put(MovieEntry.COLUMN_TITLE, movie.getTitle());
@@ -26,7 +32,7 @@ public class MoviesDatabase {
         values.put(MovieEntry.COLUMN_POSTER_URL, movie.getPosterUrl());
         values.put(MovieEntry.COLUMN_VOTE_AVERAGE, movie.getVoteAverage());
         values.put(MovieEntry.COLUMN_OVERVIEW, movie.getOverview());
-        contentResolver.insert(MoviesProvider.CONTENT_URI, values);
+        return values;
     }
 
     public void delete(Movie movie) {

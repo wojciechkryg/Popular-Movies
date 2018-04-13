@@ -2,12 +2,10 @@ package com.wojdor.popularmovies.application.discovery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,13 +25,14 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     private static final int COLUMN_WIDTH_DIVIDER = 300;
     private static final int FIRST_POSITION = 0;
 
+    @BindView(R.id.activity_discovery_navigation_bnv)
+    BottomNavigationView navigationBnv;
     @BindView(R.id.activity_discovery_no_connection_tv)
     TextView noConnectionTv;
     @BindView(R.id.activity_discovery_movies_rv)
     RecyclerView moviesRv;
 
     private DiscoveryContract.Presenter presenter;
-    private Menu menu;
     private DiscoveryAdapter adapter;
 
     @Override
@@ -41,9 +40,10 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
         ButterKnife.bind(this);
+        setupPresenter();
         setTitle(R.string.popular);
         setupMoviesRv();
-        setupPresenter();
+        setupNavigationBnv();
     }
 
     private void setupMoviesRv() {
@@ -60,62 +60,44 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         return numberOfColumns;
     }
 
+    private void setupNavigationBnv() {
+        navigationBnv.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_popular:
+                    handleOnPopularMenuItemClick();
+                    break;
+                case R.id.action_top_rated:
+                    handleOnTopRatedMenuItemClick();
+                    break;
+                case R.id.action_favourites:
+                    handleOnFavouritesMenuItemClick();
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDetachView();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.discovery_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_popular:
-                handleOnPopularMenuItemClick();
-                return true;
-            case R.id.action_top_rated:
-                handleOnTopRatedMenuItemClick();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private void handleOnPopularMenuItemClick() {
         setTitle(R.string.popular);
         presenter.loadPopularMovies();
-        hidePopularMenuItem();
-        showTopRatedMenuItem();
     }
 
     private void handleOnTopRatedMenuItemClick() {
         setTitle(R.string.top_rated);
         presenter.loadTopRatedMovies();
-        hideTopRatedMenuItem();
-        showPopularMenuItem();
     }
 
-    private void hidePopularMenuItem() {
-        menu.findItem(R.id.action_popular).setVisible(false);
-    }
-
-    private void showPopularMenuItem() {
-        menu.findItem(R.id.action_popular).setVisible(true);
-    }
-
-    private void hideTopRatedMenuItem() {
-        menu.findItem(R.id.action_top_rated).setVisible(false);
-    }
-
-    private void showTopRatedMenuItem() {
-        menu.findItem(R.id.action_top_rated).setVisible(true);
+    private void handleOnFavouritesMenuItemClick() {
+        setTitle(R.string.favourites);
+        // TODO: show favourite movies
     }
 
     @Override
