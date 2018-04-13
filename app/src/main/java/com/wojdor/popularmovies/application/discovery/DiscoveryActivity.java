@@ -63,6 +63,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private void setupNavigationBnv() {
         navigationBnv.setOnNavigationItemSelectedListener(item -> {
+            presenter.onDetachView();
             switch (item.getItemId()) {
                 case R.id.action_popular:
                     handleOnPopularMenuItemClick();
