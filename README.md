@@ -1,10 +1,20 @@
 # Popular Movies
 Project made for review at Udacity Android Nanodegree.
 
+There are 2 branches with different stages of project.
+
 ## Screenshots
+### Stage 1
 <p align="center">
-  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/screenshot_01.png?raw=true" alt="screenshot_01" style="width: 360px;"/>
-  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/screenshot_02.png?raw=true" alt="screenshot_02" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_1_01.png?raw=true" alt="stage_1_01" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_1_02.png?raw=true" alt="stage_1_02" style="width: 360px;"/>
+</p>
+
+### Stage 2
+<p align="center">
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_2_01.png?raw=true" alt="stage_2_01" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_2_02.png?raw=true" alt="stage_2_02" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_2_03.png?raw=true" alt="stage_2_03" style="width: 360px;"/>
 </p>
 
 ## TMDb API Token
