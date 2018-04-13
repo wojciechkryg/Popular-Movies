@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,8 +44,12 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     TextView voteAverageTv;
     @BindView(R.id.activity_detail_overview_tv)
     TextView overviewTv;
+    @BindView(R.id.activity_detail_trailers_tv)
+    TextView trailersTv;
     @BindView(R.id.activity_detail_trailers_rv)
     RecyclerView trailersRv;
+    @BindView(R.id.activity_detail_reviews_tv)
+    TextView reviewsTv;
     @BindView(R.id.activity_detail_reviews_rv)
     RecyclerView reviewsRv;
 
@@ -130,12 +135,22 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
 
     @Override
     public void showReviews(List<Review> reviews) {
+        toggleLabelVisibility(reviewsTv, reviews.isEmpty());
         reviewAdapter.setReviews(reviews);
     }
 
     @Override
     public void showTrailers(List<Trailer> trailers) {
+        toggleLabelVisibility(trailersTv, trailers.isEmpty());
         trailerAdapter.setTrailers(trailers);
+    }
+
+    private void toggleLabelVisibility(TextView tv, boolean shouldBeHidden) {
+        if (shouldBeHidden) {
+            tv.setVisibility(View.GONE);
+        } else {
+            tv.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

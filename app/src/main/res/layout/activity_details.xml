@@ -109,6 +109,7 @@
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/activity_details_trailer_tv_text_size"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@id/activity_detail_title_tv"
             app:layout_constraintRight_toRightOf="@id/activity_detail_title_tv"
             app:layout_constraintTop_toBottomOf="@id/activity_detail_overview_tv" />
@@ -133,6 +134,7 @@
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/activity_details_review_tv_text_size"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@id/activity_detail_title_tv"
             app:layout_constraintRight_toRightOf="@id/activity_detail_title_tv"
             app:layout_constraintTop_toBottomOf="@id/activity_detail_trailers_rv" />

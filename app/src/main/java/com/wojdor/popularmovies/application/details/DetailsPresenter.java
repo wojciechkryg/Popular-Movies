@@ -1,5 +1,7 @@
 package com.wojdor.popularmovies.application.details;
 
+import android.util.Log;
+
 import com.wojdor.popularmovies.data.model.ReviewModel;
 import com.wojdor.popularmovies.data.model.TrailerModel;
 import com.wojdor.popularmovies.data.response.ReviewsResponse;
@@ -94,6 +96,6 @@ public class DetailsPresenter implements DetailsContract.Presenter {
     }
 
     private <T extends Throwable> void onLoadError(T error) {
-        // TODO: show error
+        Log.e(DetailsPresenter.class.getSimpleName(), error.getMessage());
     }
 }
