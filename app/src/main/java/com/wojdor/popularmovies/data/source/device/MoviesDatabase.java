@@ -7,7 +7,11 @@ import android.support.annotation.NonNull;
 
 import com.wojdor.popularmovies.domain.Movie;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.wojdor.popularmovies.data.source.device.MoviesContract.MovieEntry;
+import static com.wojdor.popularmovies.data.source.device.MoviesProvider.CONTENT_URI;
 
 public class MoviesDatabase {
 
@@ -20,7 +24,7 @@ public class MoviesDatabase {
     }
 
     public void add(Movie movie) {
-        contentResolver.insert(MoviesProvider.CONTENT_URI, getContentValuesForMovie(movie));
+        contentResolver.insert(CONTENT_URI, getContentValuesForMovie(movie));
     }
 
     @NonNull
@@ -36,13 +40,42 @@ public class MoviesDatabase {
     }
 
     public void delete(Movie movie) {
-        contentResolver.delete(MoviesProvider.CONTENT_URI,
+        contentResolver.delete(CONTENT_URI,
                 MovieEntry.COLUMN_ID + "=" + movie.getId(), null);
     }
 
     public boolean contains(Movie movie) {
-        Cursor cursor = contentResolver.query(MoviesProvider.CONTENT_URI, null,
+        Cursor cursor = contentResolver.query(CONTENT_URI, null,
                 MovieEntry.COLUMN_ID + "=" + movie.getId(), null, null);
-        return cursor != null && cursor.moveToFirst() && cursor.getCount() > EMPTY_COUNT;
+        boolean contains = cursor != null && cursor.getCount() > EMPTY_COUNT;
+        close(cursor);
+        return contains;
+    }
+
+    public List<Movie> getAll() {
+        Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
+        List<Movie> movies = new ArrayList<>();
+        if (cursor == null) return movies;
+        while (cursor.moveToNext()) {
+            movies.add(getMovieFromCursor(cursor));
+        }
+        close(cursor);
+        return movies;
+    }
+
+    private Movie getMovieFromCursor(Cursor cursor) {
+        return new Movie(
+                cursor.getInt(cursor.getColumnIndex(MovieEntry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_TITLE)),
+                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_RELEASE_DATE)),
+                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_POSTER_URL)),
+                cursor.getDouble(cursor.getColumnIndex(MovieEntry.COLUMN_VOTE_AVERAGE)),
+                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_OVERVIEW))
+        );
+    }
+
+    private void close(Cursor cursor) {
+        if (cursor == null) return;
+        cursor.close();
     }
 }

@@ -27,6 +27,8 @@ interface DiscoveryContract {
 
         void loadTopRatedMovies();
 
+        void loadFavouriteMovies();
+
         void openMovieDetails(Movie movie);
     }
 }

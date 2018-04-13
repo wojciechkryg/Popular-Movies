@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.wojdor.popularmovies.R;
 import com.wojdor.popularmovies.application.base.BaseActivity;
 import com.wojdor.popularmovies.application.details.DetailsActivity;
+import com.wojdor.popularmovies.data.source.device.MoviesDatabase;
 import com.wojdor.popularmovies.domain.Movie;
 
 import java.util.List;
@@ -97,12 +98,13 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private void handleOnFavouritesMenuItemClick() {
         setTitle(R.string.favourites);
-        // TODO: show favourite movies
+        presenter.loadFavouriteMovies();
     }
 
     @Override
     public void setupPresenter() {
-        presenter = new DiscoveryPresenter(this);
+        MoviesDatabase database = new MoviesDatabase(getContentResolver());
+        presenter = new DiscoveryPresenter(this, database);
         presenter.onAttachView();
     }
 

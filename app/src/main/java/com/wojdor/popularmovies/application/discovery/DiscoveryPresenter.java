@@ -2,6 +2,7 @@ package com.wojdor.popularmovies.application.discovery;
 
 import com.wojdor.popularmovies.data.model.MovieModel;
 import com.wojdor.popularmovies.data.response.MoviesResponse;
+import com.wojdor.popularmovies.data.source.device.MoviesDatabase;
 import com.wojdor.popularmovies.data.source.service.MoviesService;
 import com.wojdor.popularmovies.data.utils.MovieModelMapper;
 import com.wojdor.popularmovies.domain.Movie;
@@ -16,9 +17,11 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     private final DiscoveryContract.View view;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    private final MoviesDatabase database;
 
-    DiscoveryPresenter(DiscoveryContract.View view) {
+    DiscoveryPresenter(DiscoveryContract.View view, MoviesDatabase database) {
         this.view = view;
+        this.database = database;
     }
 
     @Override
@@ -53,14 +56,19 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         onLoadMovies(movies);
     }
 
+    private <T extends Throwable> void onLoadError(T error) {
+        view.showError();
+    }
+
+    @Override
+    public void loadFavouriteMovies() {
+        onLoadMovies(database.getAll());
+    }
+
     private void onLoadMovies(List<Movie> movies) {
         view.hideError();
         view.showMovies(movies);
         view.scrollToTop();
-    }
-
-    private <T extends Throwable> void onLoadError(T error) {
-        view.showError();
     }
 
     @Override
