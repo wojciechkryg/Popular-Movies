@@ -26,7 +26,19 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
 
     @Override
     public void onAttachView() {
-        loadPopularMovies();
+        switch (view.getCurrentMenuItem()) {
+            case POPULAR:
+                loadPopularMovies();
+                break;
+            case TOP_RATED:
+                loadTopRatedMovies();
+                break;
+            case FAVOURITE:
+                loadFavouriteMovies();
+                break;
+            default:
+                loadPopularMovies();
+        }
     }
 
     @Override
@@ -66,6 +78,10 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
     }
 
     private void onLoadMovies(List<Movie> movies) {
+        if (movies.isEmpty()) {
+            view.showError();
+            return;
+        }
         view.hideError();
         view.showMovies(movies);
         view.scrollToTop();

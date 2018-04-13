@@ -3,8 +3,9 @@
 
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
-    <string name="favourites">Favourites</string>
-    <string name="no_connection">No connection, try again!</string>
+    <string name="favourite">Favourite</string>
+
+    <string name="no_movies">Empty movie list</string>
 
     <string name="details">Details</string>
     <string name="trailers">Trailers</string>

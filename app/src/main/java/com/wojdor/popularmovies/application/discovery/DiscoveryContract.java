@@ -10,6 +10,8 @@ interface DiscoveryContract {
 
     interface View extends BaseView {
 
+        MenuItem getCurrentMenuItem();
+
         void showMovies(List<Movie> movies);
 
         void showError();

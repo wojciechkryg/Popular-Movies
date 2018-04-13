@@ -1,7 +1,8 @@
 package com.wojdor.popularmovies.application.discovery;
 
-public enum MoviesOrder {
+public enum MenuItem {
 
     POPULAR,
-    TOP_RATED
+    TOP_RATED,
+    FAVOURITE
 }

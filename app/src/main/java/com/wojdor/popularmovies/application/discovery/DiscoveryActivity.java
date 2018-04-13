@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View {
 
+    private static final String LAST_MENU_ITEM_ID = "LAST_MENU_ITEM_ID";
     private static final int MIN_NUMBER_OF_COLUMNS = 2;
     private static final int COLUMN_WIDTH_DIVIDER = 300;
     private static final int FIRST_POSITION = 0;
@@ -41,10 +42,17 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
         ButterKnife.bind(this);
-        setupPresenter();
+        selectLastMenuItem(savedInstanceState);
         setTitle(R.string.popular);
         setupMoviesRv();
         setupNavigationBnv();
+        setupPresenter();
+    }
+
+    private void selectLastMenuItem(Bundle savedInstanceState) {
+        if (savedInstanceState == null) return;
+        int lastMenuItemId = savedInstanceState.getInt(LAST_MENU_ITEM_ID);
+        navigationBnv.setSelectedItemId(lastMenuItemId);
     }
 
     private void setupMoviesRv() {
@@ -71,7 +79,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
                 case R.id.action_top_rated:
                     handleOnTopRatedMenuItemClick();
                     break;
-                case R.id.action_favourites:
+                case R.id.action_favourite:
                     handleOnFavouritesMenuItemClick();
                     break;
                 default:
@@ -79,6 +87,12 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
             }
             return true;
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(LAST_MENU_ITEM_ID, navigationBnv.getSelectedItemId());
     }
 
     @Override
@@ -98,7 +112,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     }
 
     private void handleOnFavouritesMenuItemClick() {
-        setTitle(R.string.favourites);
+        setTitle(R.string.favourite);
         presenter.loadFavouriteMovies();
     }
 
@@ -107,6 +121,20 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
         MoviesDatabase database = new MoviesDatabase(getContentResolver());
         presenter = new DiscoveryPresenter(this, database);
         presenter.onAttachView();
+    }
+
+    @Override
+    public MenuItem getCurrentMenuItem() {
+        switch (navigationBnv.getSelectedItemId()) {
+            case R.id.action_popular:
+                return MenuItem.POPULAR;
+            case R.id.action_top_rated:
+                return MenuItem.TOP_RATED;
+            case R.id.action_favourite:
+                return MenuItem.FAVOURITE;
+            default:
+                return MenuItem.POPULAR;
+        }
     }
 
     @Override

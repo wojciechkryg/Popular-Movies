@@ -23,7 +23,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:padding="@dimen/small_padding"
-        android:text="@string/no_connection"
+        android:text="@string/no_movies"
         android:textColor="@android:color/white"
         android:textSize="@dimen/activity_discovery_no_connection_tv_size"
         android:visibility="gone"
