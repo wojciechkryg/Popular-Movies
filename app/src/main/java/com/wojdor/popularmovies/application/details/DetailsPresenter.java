@@ -22,10 +22,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailsPresenter implements DetailsContract.Presenter {
 
+    private final static int FIRST_POSITION = 0;
+
     private final DetailsContract.View view;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MoviesDatabase database;
     private final Movie movie;
+
+    private List<Trailer> trailers;
 
     public DetailsPresenter(DetailsContract.View view, MoviesDatabase database, Movie movie) {
         this.view = view;
@@ -89,10 +93,22 @@ public class DetailsPresenter implements DetailsContract.Presenter {
         return database.contains(movie);
     }
 
+    @Override
+    public void shareMovie() {
+        if (trailers.isEmpty()) return;
+        view.shareTrailer(trailers.get(FIRST_POSITION).getVideoUrl());
+    }
+
     private void onLoadTrailersResponse(TrailersResponse trailersResponse) {
         List<TrailerModel> trailerModels = trailersResponse.getResults();
-        List<Trailer> trailers = TrailerModelMapper.getInstance().map(trailerModels);
+        trailers = TrailerModelMapper.getInstance().map(trailerModels);
         view.showTrailers(trailers);
+        enableShare();
+    }
+
+    private void enableShare() {
+        if (trailers.isEmpty()) return;
+        view.showShareMenuItem();
     }
 
     private <T extends Throwable> void onLoadError(T error) {

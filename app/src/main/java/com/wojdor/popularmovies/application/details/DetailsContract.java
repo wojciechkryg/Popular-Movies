@@ -21,6 +21,10 @@ interface DetailsContract {
         void showTrailer(String videoUrl);
 
         void setupFavouriteIcon();
+
+        void showShareMenuItem();
+
+        void shareTrailer(String url);
     }
 
     interface Presenter extends BasePresenter {
@@ -36,5 +40,7 @@ interface DetailsContract {
         void deleteMovieFromFavourites();
 
         boolean isMovieFavourite();
+
+        void shareMovie();
     }
 }

@@ -5,6 +5,9 @@
     <string name="top_rated">Top Rated</string>
     <string name="favourite">Favourite</string>
 
+    <string name="share">Share</string>
+    <string name="share_title">Share trailer url!</string>
+
     <string name="no_movies">Empty movie list</string>
 
     <string name="details">Details</string>

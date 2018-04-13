@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +33,9 @@ import butterknife.OnClick;
 public class DetailsActivity extends BaseActivity implements DetailsContract.View {
 
     public static final String MOVIE_EXTRA = "MOVIE";
+
     private static final String AVERAGE_FORMAT = "%.1f";
+    private static final String SHARE_TYPE = "text/plain";
 
     @BindView(R.id.activity_detail_title_tv)
     TextView titleTv;
@@ -56,6 +61,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     private DetailsContract.Presenter presenter;
     private TrailerAdapter trailerAdapter;
     private ReviewAdapter reviewAdapter;
+    private Menu menu;
 
     @OnClick(R.id.activity_detail_favourite_fab)
     public void onFavouriteFabClick() {
@@ -108,6 +114,26 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         reviewsRv.setLayoutManager(layoutManager);
         reviewsRv.setAdapter(reviewAdapter);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.details_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                presenter.shareMovie();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -168,6 +194,20 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         } else {
             favouriteFab.setImageResource(R.drawable.ic_unfavorite);
         }
+    }
+
+    @Override
+    public void showShareMenuItem() {
+        menu.findItem(R.id.action_share).setVisible(true);
+    }
+
+    @Override
+    public void shareTrailer(String url) {
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.setType(SHARE_TYPE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        startActivity(Intent.createChooser(intent, getString(R.string.share_title)));
     }
 
     private void setupPosterIv(Movie movie) {
