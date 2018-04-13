@@ -67,6 +67,22 @@ public class DetailsPresenter implements DetailsContract.Presenter {
         view.showTrailer(trailer.getVideoUrl());
     }
 
+    @Override
+    public void addMovieToFavourites() {
+        // TODO: add movie to favourites
+    }
+
+    @Override
+    public void deleteMovieFromFavourites() {
+        // TODO: add movie from favourites
+    }
+
+    @Override
+    public boolean isMovieFavourite() {
+        // TODO: check if it is favourite movie from db
+        return false;
+    }
+
     private void onLoadTrailersResponse(TrailersResponse trailersResponse) {
         List<TrailerModel> trailerModels = trailersResponse.getResults();
         List<Trailer> trailers = TrailerModelMapper.getInstance().map(trailerModels);

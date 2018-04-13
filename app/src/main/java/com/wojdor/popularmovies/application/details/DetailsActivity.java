@@ -3,6 +3,7 @@ package com.wojdor.popularmovies.application.details;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailsActivity extends BaseActivity implements DetailsContract.View {
 
@@ -32,6 +34,8 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     TextView titleTv;
     @BindView(R.id.activity_detail_poster_iv)
     ImageView posterIv;
+    @BindView(R.id.activity_detail_favourite_fab)
+    FloatingActionButton favouriteFab;
     @BindView(R.id.activity_detail_release_date_tv)
     TextView releaseDateTv;
     @BindView(R.id.activity_detail_vote_average_tv)
@@ -47,15 +51,25 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     private TrailerAdapter trailerAdapter;
     private ReviewAdapter reviewAdapter;
 
+    @OnClick(R.id.activity_detail_favourite_fab)
+    public void onFavouriteFabClick() {
+        if (presenter.isMovieFavourite()) {
+            presenter.addMovieToFavourites();
+        } else {
+            presenter.deleteMovieFromFavourites();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+        setupPresenter();
         setTitle(R.string.details);
+        setupFavouriteIcon();
         setupTrailersRv();
         setupReviewsRv();
-        setupPresenter();
     }
 
     private void setupTrailersRv() {
@@ -128,6 +142,15 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         Intent intent = new Intent(Intent.ACTION_VIEW, url);
         if (intent.resolveActivity(getPackageManager()) == null) return;
         startActivity(intent);
+    }
+
+    @Override
+    public void setupFavouriteIcon() {
+        if (presenter.isMovieFavourite()) {
+            favouriteFab.setImageResource(R.drawable.ic_favorite);
+        } else {
+            favouriteFab.setImageResource(R.drawable.ic_unfavorite);
+        }
     }
 
     private void setupPosterIv(Movie movie) {

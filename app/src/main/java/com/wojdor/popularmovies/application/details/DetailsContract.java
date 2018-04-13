@@ -19,6 +19,8 @@ interface DetailsContract {
         void showTrailers(List<Trailer> trailers);
 
         void showTrailer(String videoUrl);
+
+        void setupFavouriteIcon();
     }
 
     interface Presenter extends BasePresenter {
@@ -28,5 +30,11 @@ interface DetailsContract {
         void loadTrailers();
 
         void openTrailer(Trailer trailer);
+
+        void addMovieToFavourites();
+
+        void deleteMovieFromFavourites();
+
+        boolean isMovieFavourite();
     }
 }
