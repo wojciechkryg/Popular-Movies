@@ -84,7 +84,7 @@ public class DiscoveryPresenter implements DiscoveryContract.Presenter {
         }
         view.hideError();
         view.showMovies(movies);
-        view.scrollToTop();
+        view.restoreMoviesState();
     }
 
     @Override

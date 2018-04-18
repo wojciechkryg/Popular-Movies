@@ -2,6 +2,7 @@ package com.wojdor.popularmovies.application.discovery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class DiscoveryActivity extends BaseActivity implements DiscoveryContract.View {
 
     private static final String LAST_MENU_ITEM_ID = "LAST_MENU_ITEM_ID";
+    private static final String LAST_MOVIE_RV_STATE = "LAST_MOVIE_RV_STATE";
     private static final int MIN_NUMBER_OF_COLUMNS = 2;
     private static final int COLUMN_WIDTH_DIVIDER = 300;
     private static final int FIRST_POSITION = 0;
@@ -36,23 +38,33 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
 
     private DiscoveryContract.Presenter presenter;
     private DiscoveryAdapter adapter;
+    private Parcelable moviesRvState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
         ButterKnife.bind(this);
-        selectLastMenuItem(savedInstanceState);
+        setupPresenter();
         setTitle(R.string.popular);
         setupMoviesRv();
         setupNavigationBnv();
-        setupPresenter();
+        restoreState(savedInstanceState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        if (savedInstanceState == null) return;
+        selectLastMenuItem(savedInstanceState);
+        saveMoviesRvState(savedInstanceState);
     }
 
     private void selectLastMenuItem(Bundle savedInstanceState) {
-        if (savedInstanceState == null) return;
         int lastMenuItemId = savedInstanceState.getInt(LAST_MENU_ITEM_ID);
         navigationBnv.setSelectedItemId(lastMenuItemId);
+    }
+
+    private void saveMoviesRvState(Bundle savedInstanceState) {
+        moviesRvState = savedInstanceState.getParcelable(LAST_MOVIE_RV_STATE);
     }
 
     private void setupMoviesRv() {
@@ -93,6 +105,7 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(LAST_MENU_ITEM_ID, navigationBnv.getSelectedItemId());
+        outState.putParcelable(LAST_MOVIE_RV_STATE, moviesRv.getLayoutManager().onSaveInstanceState());
     }
 
     @Override
@@ -155,6 +168,19 @@ public class DiscoveryActivity extends BaseActivity implements DiscoveryContract
     }
 
     @Override
+    public void restoreMoviesState() {
+        if (moviesRvState == null) {
+            scrollToTop();
+        } else {
+            scrollToLastPosition();
+            moviesRvState = null;
+        }
+    }
+
+    private void scrollToLastPosition() {
+        moviesRv.getLayoutManager().onRestoreInstanceState(moviesRvState);
+    }
+
     public void scrollToTop() {
         moviesRv.scrollToPosition(FIRST_POSITION);
     }

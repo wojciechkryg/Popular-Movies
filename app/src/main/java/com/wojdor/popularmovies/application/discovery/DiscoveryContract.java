@@ -18,7 +18,7 @@ interface DiscoveryContract {
 
         void hideError();
 
-        void scrollToTop();
+        void restoreMoviesState();
 
         void showMovieDetails(Movie movie);
     }
