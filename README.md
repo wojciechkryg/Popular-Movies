@@ -1,5 +1,6 @@
 # Popular Movies
 Project made for review at Udacity Android Nanodegree.
+Written in Java with use of MVP.
 
 There are 2 branches with different stages of project.
 
