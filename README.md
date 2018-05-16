@@ -1,10 +1,10 @@
 # Popular Movies
-Project made for review at Udacity Android Nanodegree.
+Project made for review at Udacity Android Nanodegree. Written in Java with use of MVP.
 
 ## Screenshots
 <p align="center">
-  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/screenshot_01.png?raw=true" alt="screenshot_01" style="width: 360px;"/>
-  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/screenshot_02.png?raw=true" alt="screenshot_02" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_1_01.png?raw=true" alt="stage_1_01" style="width: 360px;"/>
+  <img src="https://github.com/wojciechkryg/Popular-Movies/blob/master/screenshots/stage_1_02.png?raw=true" alt="stage_1_02" style="width: 360px;"/>
 </p>
 
 ## TMDb API Token
